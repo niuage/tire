@@ -7,8 +7,9 @@ module Tire
         block.arity < 1 ? self.instance_eval(&block) : block.call(self) if block_given?
       end
 
-      def by(name, direction=nil)
-        @value << ( direction ? { name => direction } : name )
+      def by(name, options = nil)
+        direction = options unless options.is_a?(Hash)
+        @value << ( direction ? { name => direction } : { name => options } )
         self
       end
 
